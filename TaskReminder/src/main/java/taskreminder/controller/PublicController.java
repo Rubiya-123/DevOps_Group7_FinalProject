@@ -107,6 +107,9 @@ public class PublicController {
     @PostMapping("/login/testing")
     public void login2(@RequestBody UserLoginDTO dto) {
     }
+    
+    @PostMapping("/signup/testing")
+    public void signup2(@RequestBody UserDTO userDTO) {}
 
     
 }
