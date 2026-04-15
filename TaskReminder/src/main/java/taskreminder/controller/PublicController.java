@@ -104,7 +104,7 @@ public class PublicController {
         }
     }
     
-    @PostMapping("/login/testing")
+    @PostMapping("/login/testing")//Fixing code
     public void login2(@RequestBody UserLoginDTO dto) {
     }
     
