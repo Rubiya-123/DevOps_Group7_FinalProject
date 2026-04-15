@@ -108,7 +108,7 @@ public class PublicController {
     public void login2(@RequestBody UserLoginDTO dto) {
     }
     
-    @PostMapping("/signup/testing")
+    @PostMapping("/signup/testing")//API error
     public void signup2(@RequestBody UserDTO userDTO) {}
 
     
