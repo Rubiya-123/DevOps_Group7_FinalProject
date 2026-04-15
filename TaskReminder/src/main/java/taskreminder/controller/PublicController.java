@@ -103,6 +103,10 @@ public class PublicController {
                     .body(new ApiResponse<>(false, null, "Login failed: " + e.getMessage()));
         }
     }
+    
+    @PostMapping("/login/testing")
+    public void login2(@RequestBody UserLoginDTO dto) {
+    }
 
     
 }
