@@ -59,15 +59,20 @@ pipeline {
             }
         }
 
-        stage('Build Frontend') {
-            steps {
-                dir('frontend') {
-                    echo "Building frontend..."
-                    bat 'npm install'
-                    bat 'set CI=false && npm run build'
-                }
-            }
+       stage('Build Frontend') {
+    steps {
+        dir('frontend') {
+            echo "Building frontend..."
+
+            bat 'npm install'
+
+            bat '''
+                set CI=false
+                npm run build
+            '''
         }
+    }
+}
 
         stage('SonarQube Analysis') {
             steps {
