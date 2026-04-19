@@ -25,7 +25,7 @@ const TaskComponent = ({notif,setNotif}) => {
     const token= sessionStorage.getItem("jwtToken");
     console.log("TOKEN:", sessionStorage.getItem("jwtToken"));
     try {
-      const response = await axios.get("http://localhost:8080/reminders/mine", { headers: {
+      const response = await axios.get("http://localhost:9090/reminders/mine", { headers: {
       Authorization: `Bearer ${token}`}});
       setReminders(response.data || []);
     } catch (err) {
@@ -55,7 +55,7 @@ const TaskComponent = ({notif,setNotif}) => {
     try {
       console.log("🗑️ Attempting to delete reminder ID:", id);
        const token= sessionStorage.getItem("jwtToken");
-      const response = await axios.delete(`http://localhost:8080/reminders/${id}`, { 
+      const response = await axios.delete(`http://localhost:9090/reminders/${id}`, { 
         headers: {
       Authorization: `Bearer ${token}`} 
       });

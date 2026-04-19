@@ -35,7 +35,7 @@ const AddTask = ({ checkNotifications }) => {
   try {
     console.log("TOKEN:", sessionStorage.getItem("jwtToken"));
     // Save reminder first
-    const response = await axios.post("http://localhost:8080/reminders/add", reminder, {headers: {
+    const response = await axios.post("http://localhost:9090/reminders/add", reminder, {headers: {
       Authorization: `Bearer ${token}`}});
     const savedReminder = response.data;
     

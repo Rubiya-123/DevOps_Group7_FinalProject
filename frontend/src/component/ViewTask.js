@@ -19,7 +19,7 @@ const ViewTask = () => {
       const fetchReminder = async () => {
         try {
           const token = sessionStorage.getItem("jwtToken");
-          const response = await axios.get(`http://localhost:8080/reminders/${id}`, {
+          const response = await axios.get(`http://localhost:9090/reminders/${id}`, {
             headers: { Authorization: `Bearer ${token}` },
           });
           setReminder(response.data);

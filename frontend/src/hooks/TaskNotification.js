@@ -12,7 +12,7 @@ const useTaskNotifications = (isLoggedIn,setNotif) => {
     try {
       const token= sessionStorage.getItem("jwtToken");
       console.log("Checking UI notifications...");
-      const res = await axios.get("http://localhost:8080/reminders/mine", { 
+      const res = await axios.get("http://localhost:9090/reminders/mine", { 
        headers: {
       Authorization: `Bearer ${token}`}
       });
@@ -64,7 +64,7 @@ const useTaskNotifications = (isLoggedIn,setNotif) => {
           notifiedSet.current.add(r.id);
           try {
             const token= sessionStorage.getItem("jwtToken");
-            await axios.patch(`http://localhost:8080/reminders/ui-notified/${r.id}`, {}, { headers: {
+            await axios.patch(`http://localhost:9090/reminders/ui-notified/${r.id}`, {}, { headers: {
       Authorization: `Bearer ${token}`}
             });
             console.log("Marked as UI notified in backend");
@@ -88,7 +88,7 @@ const useTaskNotifications = (isLoggedIn,setNotif) => {
           notifiedSet.current.add(r.id);
           try {
             const token= sessionStorage.getItem("jwtToken");
-            await axios.patch(`http://localhost:8080/reminders/ui-notified/${r.id}`, {}, {headers: {
+            await axios.patch(`http://localhost:9090/reminders/ui-notified/${r.id}`, {}, {headers: {
       Authorization: `Bearer ${token}`} 
             });
             console.log("✅ Marked as UI notified in backend");

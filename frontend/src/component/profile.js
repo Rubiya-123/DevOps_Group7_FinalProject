@@ -14,7 +14,7 @@ const ProfileComponent = () => {
     try {
         const token= sessionStorage.getItem("jwtToken");
       const response = await axios.get(
-        "http://localhost:8080/user/profile",
+        "http://localhost:9090/user/profile",
         {headers: {
       Authorization: `Bearer ${token}`} }
       );

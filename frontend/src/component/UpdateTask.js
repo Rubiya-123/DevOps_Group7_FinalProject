@@ -58,7 +58,7 @@ const UpdateTask = () => {
     console.log("Data being sent:", updatedReminder);
     
     const response = await axios.put(
-      `http://localhost:8080/reminders/${reminder.id}`,
+      `http://localhost:9090/reminders/${reminder.id}`,
       updatedReminder,
       { headers: {
       Authorization: `Bearer ${token}`}}
