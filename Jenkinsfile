@@ -80,13 +80,29 @@ pipeline {
     }
 }
 
-        stage('Deploy') {
-            steps {
-                echo "Deploy stage (placeholder)"
-            }
-        }
+        stage('Deploy to Dev') {
+    steps {
+        echo "Deploying to DEV (mock)"
     }
+}
 
+stage('Deploy to QAT') {
+    steps {
+        echo "Deploying to QAT (mock)"
+    }
+}
+
+stage('Deploy to Staging') {
+    steps {
+        echo "Deploying to STAGING (mock)"
+    }
+}
+
+stage('Deploy to Production') {
+    steps {
+        echo "Deploying to PROD (mock)"
+    }
+}
     post {
         success {
             echo "Pipeline SUCCESS"
