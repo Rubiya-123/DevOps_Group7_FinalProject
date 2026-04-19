@@ -18,7 +18,7 @@ pipeline {
 
         stage('Build Backend') {
             steps {
-                dir('backend') {
+                dir('TaskReminder') {
                     echo "Building backend..."
                     bat 'mvn clean install'
                 }
@@ -27,7 +27,7 @@ pipeline {
 
         stage('Test Backend') {
             steps {
-                dir('backend') {
+                dir('TaskReminder') {
                     echo "Running backend tests..."
                     bat 'mvn test'
                 }
