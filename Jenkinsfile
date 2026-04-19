@@ -74,13 +74,13 @@ pipeline {
     }
 }
 
-      stage('SonarQube Analysis') {
+     stage('SonarQube Analysis') {
     steps {
         echo "SonarQube analysis (mocked - no server configured)"
     }
 }
 
-        stage('Deploy to Dev') {
+stage('Deploy to Dev') {
     steps {
         echo "Deploying to DEV (mock)"
     }
@@ -103,7 +103,7 @@ stage('Deploy to Production') {
         echo "Deploying to PROD (mock)"
     }
 }
-}   // ✅ closes stages block
+}   // closes stages
 
 post {
     success {
