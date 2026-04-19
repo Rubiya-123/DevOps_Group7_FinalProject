@@ -2,21 +2,34 @@ pipeline {
     agent any
 
     triggers {
-        pollSCM('* * * * *') // checks every minute
+        pollSCM('* * * * *') // check GitHub every minute
+    }
+
+    tools {
+        maven 'Maven Auto'   // make sure this exists in Jenkins
+    }
+
+    environment {
+        JAVA_HOME = 'C:\\Program Files\\Java\\jdk-21.0.10'
+        PATH = "${tool 'Maven Auto'}\\bin;${env.PATH}"
     }
 
     stages {
 
-        stage('Checkout') {
-            steps {
-                git branch: 'main', url: 'https://github.com/Rubiya-123/DevOps_Group7_FinalProject.git'
-            }
-        }
-
         stage('Build Backend') {
             steps {
                 dir('backend') {
+                    echo "Building backend..."
                     bat 'mvn clean install'
+                }
+            }
+        }
+
+        stage('Test Backend') {
+            steps {
+                dir('backend') {
+                    echo "Running backend tests..."
+                    bat 'mvn test'
                 }
             }
         }
@@ -24,54 +37,56 @@ pipeline {
         stage('Build Frontend') {
             steps {
                 dir('frontend') {
+                    echo "Building frontend..."
                     bat 'npm install'
                     bat 'npm run build'
                 }
             }
         }
 
-        stage('Test') {
-            steps {
-                dir('backend') {
-                    bat 'mvn test'
-                }
-            }
-        }
-
         stage('SonarQube Analysis') {
             steps {
-                echo 'Running SonarQube (mock)'
+                echo 'Skipping for now (can add later)'
             }
         }
 
         stage('Deliver') {
             steps {
-                echo 'Packaging artifact'
+                echo 'Packaging artifact (JAR + frontend build)'
             }
         }
 
         stage('Deploy to Dev') {
             steps {
-                echo 'Deploying to DEV'
+                echo 'Deploying to DEV (placeholder)'
             }
         }
 
         stage('Deploy to QAT') {
             steps {
-                echo 'Deploying to QAT'
+                echo 'Deploying to QAT (placeholder)'
             }
         }
 
         stage('Deploy to Staging') {
             steps {
-                echo 'Deploying to STAGING'
+                echo 'Deploying to STAGING (placeholder)'
             }
         }
 
         stage('Deploy to Production') {
             steps {
-                echo 'Deploying to PROD'
+                echo 'Deploying to PROD (placeholder)'
             }
+        }
+    }
+
+    post {
+        success {
+            echo "Pipeline completed successfully!"
+        }
+        failure {
+            echo "Pipeline failed. Check logs."
         }
     }
 }
