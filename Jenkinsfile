@@ -103,13 +103,13 @@ stage('Deploy to Production') {
         echo "Deploying to PROD (mock)"
     }
 }
-    post {
-        success {
-            echo "Pipeline SUCCESS"
-        }
-        failure {
-            echo "Pipeline FAILED - check logs"
-        }
+}   // ✅ closes stages block
+
+post {
+    success {
+        echo "Pipeline SUCCESS"
     }
-}
+    failure {
+        echo "Pipeline FAILED - check logs"
+    }
 }
