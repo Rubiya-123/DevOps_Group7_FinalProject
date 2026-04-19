@@ -9,7 +9,7 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                git 'https://github.com/Rubiya-123/DevOps_Group7_FinalProject.git'
+                git branch: 'main', url: 'https://github.com/Rubiya-123/DevOps_Group7_FinalProject.git'
             }
         }
 
