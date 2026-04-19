@@ -75,10 +75,14 @@ pipeline {
 }
 
         stage('SonarQube Analysis') {
-            steps {
-                echo "SonarQube stage (placeholder)"
+    steps {
+        withSonarQubeEnv('SonarQube') {
+            dir('TaskReminder') {
+                bat 'mvn clean verify sonar:sonar'
             }
         }
+    }
+}
 
         stage('Deploy') {
             steps {
