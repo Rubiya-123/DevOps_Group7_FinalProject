@@ -57,53 +57,32 @@ public class PublicController {
         return ResponseEntity.status(HttpStatus.CREATED).body(s);
     }
     
-    
     @PostMapping("/login")
     public ResponseEntity<ApiResponse<UserResponseDTO>> login(@RequestBody UserLoginDTO dto) {
-        try {
-            String username = dto.getUsername();
-            String password = dto.getPassword();
 
-            // Find user by username
-            User dbUser = userService.findByUsername(username);
-            if (dbUser == null) {
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                        .body(new ApiResponse<>(false, null, "Incorrect username or password"));
-            }
+        User dbUser = userService.findByUsername(dto.getUsername());
 
-            // Validate password
-            if (!passwordEncoder.matches(password, dbUser.getPassword())) {
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                        .body(new ApiResponse<>(false, null, "Incorrect username or password"));
-            }
+        if (dbUser == null ||
+            !passwordEncoder.matches(dto.getPassword(), dbUser.getPassword())) {
 
-            // Authenticate user
-            Authentication authentication = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(username, password)
-            );
-
-            // Store authentication in SecurityContext
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-
-
-            // Create JWT
-            String jwt = jwtUtil.generateToken(username);
-
-            // Build response DTO
-            UserResponseDTO response = new UserResponseDTO(
-                    jwt, dbUser.getUser_id(), dbUser.getUsername(), dbUser.getEmail()
-            );
-
-            // Return success response
-            return ResponseEntity.ok(new ApiResponse<>(true, response, "Login successful"));
-
-        } catch (Exception e) {
-            // Return failure response with message
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body(new ApiResponse<>(false, null, "Login failed: " + e.getMessage()));
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(new ApiResponse<>(false, null, "Incorrect username or password"));
         }
+
+        String jwt = jwtUtil.generateToken(dto.getUsername());
+
+        UserResponseDTO response = new UserResponseDTO(
+                jwt,
+                dbUser.getUser_id(),
+                dbUser.getUsername(),
+                dbUser.getEmail()
+        );
+
+        return ResponseEntity.ok(new ApiResponse<>(true, response, "Login successful"));
     }
     
+    
+   
     @PostMapping("/login/testing")//Fixing code
     public void login2(@RequestBody UserLoginDTO dto) {
     }

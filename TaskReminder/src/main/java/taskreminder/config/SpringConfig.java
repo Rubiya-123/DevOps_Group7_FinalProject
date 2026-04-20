@@ -50,11 +50,19 @@ public class SpringConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
             .csrf(csrf -> csrf.disable())
+            .cors(cors -> cors.disable()) // optional but useful for React dev
             .authorizeHttpRequests(auth -> auth
-            		.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() 
+                // allow public endpoints (LOGIN + SIGNUP)
+                .requestMatchers("/public/**").permitAll()
+
+                // allow preflight requests (VERY important for React + Axios)
+                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+
+                // secured endpoints
                 .requestMatchers("/reminders/**", "/user/**").authenticated()
                 .requestMatchers("/admin/**").hasRole("ADMIN")
-                .anyRequest().permitAll()
+
+                .anyRequest().authenticated()
             )
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authenticationProvider(authenticationProvider())
@@ -63,4 +71,3 @@ public class SpringConfig {
         return http.build();
     }
 }
-

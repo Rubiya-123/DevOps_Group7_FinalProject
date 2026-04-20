@@ -3,6 +3,8 @@ package taskreminder.dto;
 public class UserLoginDTO {
 	private String username;
     private String password;
+    
+    public UserLoginDTO() {}
 	public String getUsername() {
 		return username;
 	}
